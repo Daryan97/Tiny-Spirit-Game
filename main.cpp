@@ -13,7 +13,7 @@ void drawTutorial() {
         "1. Press arrow keys to move around!",
         "2. Press space bar or up arrow to jump!",
         "3. Avoid enemies on the map!",
-        "4. Collect heart collectibles if you lose health1",
+        "4. Collect heart collectibles if you lose health!",
         "5. Go to the end point to advance to the next level.",
         "Press SPACE to continue"
     };
