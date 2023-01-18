@@ -17,3 +17,20 @@ Here you face multiple challenges from your enemies and levels!
 2. [Castor's Forest Pixelpack Tileset](https://castorcreations.itch.io/castors-forest-pixelpack-tileset)
 3. [COIN - 2D ANIMATION](https://gabriel-ceppas.itch.io/coin)
 4. [RPG Characters Pack](https://ze0nni.itch.io/rpg-characters-pack)
+
+### How maps are generated?
+I have used [Tiled Map Editor](https://www.mapeditor.org/) to create maps on one layer, then extract it as ```JSON```, get the data out of the file, and put it in a **Multidimensional Array**  called *maps*.
+
+This is not the most efficient way to generate maps, but it makes it 10 times easier for my university project.
+
+What do the numbers represent?
+| Number | Represents |
+|--|--|
+| 0 | Air |
+| 1 | Dirt Tile |
+| 2 | Grass Tile |
+| 3 | Heart Collectible |
+| 4 | Player Spawn |
+| 5 | Enemy Spawn |
+| 6 | Next Level |
+The project full map creation files can be found at [this repository](https://github.com/Daryan97/Tiny_Spirits_Map).
