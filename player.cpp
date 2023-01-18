@@ -1,5 +1,7 @@
 #include <graphics.h>
 #include <iostream>
+#include <queue>
+#include <math.h>
 #include "player.hpp"
 using namespace std;
 
@@ -44,6 +46,16 @@ void Player::playerActions(int x, int y) {
 			this->x -= speed;
     	    this->lookingRight = false;
 		}
+		else if (GetAsyncKeyState(VK_DOWN))
+		{
+			putimage(this->x, this->y, playerWalkingLeft, COPY_PUT);
+			this->y += 1;
+		}
+		// else if (GetAsyncKeyState(VK_UP))
+		// {
+		// 	putimage(this->x, this->y, playerWalkingLeft, COPY_PUT);
+		// 	this->y -= 1;
+		// }
 		else {
     		if (lookingRight == true)
     		{
@@ -62,7 +74,7 @@ void Player::playerActions(int x, int y) {
 		this->enemyTouchCount = 0;
 		playerTakeHealth(1);
 	}
-
+	
 	setPosY(y + 1);
 	playerCollision();
 	setUI();
@@ -102,6 +114,8 @@ void Player::playerActions(int x, int y) {
 
 	if (getHealth() <= 0) {
 		cout << "Game over!" << endl;
+		cout << "X: " << this->x << endl;
+		cout << "Y: " << this->y << endl;
 		exit(0);
 	}
 }
@@ -115,7 +129,7 @@ void Player::playerJump() {
 	if (isJumping == true && isOnGround == true)
 	{
 		isOnGround = false;
-		setPosY(y - 38);
+		setPosY(y - 56);
 	}
 }
 
@@ -132,6 +146,9 @@ void Player::playerCollision() {
 	}
 	else if (posX() > (800 - width)) {
 		setPosX(768);
+	}
+	else if (posY() > (600)) {
+		playerTakeHealth(this->health);
 	}
 
 	for (int i = 0; i < getMapSize(); i++) {
@@ -153,8 +170,9 @@ void Player::playerCollision() {
 				}
 				// check if player is colliding with tile from the bottom
 				else if (playerTop + 1 >= tileBottom) {
-					setPosY(tileBottom + height);
+					setPosY(tileBottom);
 					isOnGround = false;
+					isJumping = true;
 				}
 				// check if player is colliding with tile from the left
 				else if ((playerRight - 1 >= tileLeft) && lookingRight == false) {
@@ -196,7 +214,7 @@ void Player::playerTakeHealth(int health) {
 	if (health > 0 && this->health != 0) {
 		this->health -= health;
 	}		
-};
+}
 
 void Player::setUI() {
 	if (getLevel() != 0)
@@ -236,7 +254,7 @@ void Player::registerTouchCount() {
 void Player::setStartPos() {
 	int* startPos = getStartPos();
 	setPosX(startPos[0]);
-	setPosY(startPos[1]);
+	setPosY(startPos[1] - 32);
 }
 
 void Player::debugMode() {
