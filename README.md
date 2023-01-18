@@ -1,4 +1,5 @@
 # Tiny Spirit Game
+
 Welcome to the Tiny Spirit game!
 Here you face multiple challenges from your enemies and levels!
 
@@ -9,3 +10,9 @@ Here you face multiple challenges from your enemies and levels!
 
 - Language used: **C++**
 - Library: [Borland Graphics Interface (BGI) for Windows](https://home.cs.colorado.edu/~main/bgi/doc/)
+
+## Asset Links:
+1. [Free Tiny Hero Sprites Pixel Art](https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art)
+2. [Castor's Forest Pixelpack Tileset](https://castorcreations.itch.io/castors-forest-pixelpack-tileset)
+3. [COIN - 2D ANIMATION](https://gabriel-ceppas.itch.io/coin)
+4. [RPG Characters Pack](https://ze0nni.itch.io/rpg-characters-pack)
