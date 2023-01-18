@@ -34,22 +34,17 @@ void Player::readPlayerAssets() {
 
 void Player::playerActions(int x, int y) {
 	if (getLevel() != 0) {
-    	if(GetAsyncKeyState(VK_RIGHT))
+    	if(GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(0x44))
 		{
 			putimage(this->x, this->y, playerWalkingRight, COPY_PUT);
 			this->x += speed;
 			lookingRight = true;
 		}
-		else if(GetAsyncKeyState(VK_LEFT))
+		else if(GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(0x41))
 		{
 			putimage(this->x, this->y, playerWalkingLeft, COPY_PUT);
 			this->x -= speed;
     	    this->lookingRight = false;
-		}
-		else if (GetAsyncKeyState(VK_DOWN))
-		{
-			putimage(this->x, this->y, playerWalkingLeft, COPY_PUT);
-			this->y += 1;
 		}
 		else {
     		if (lookingRight == true)
@@ -63,7 +58,7 @@ void Player::playerActions(int x, int y) {
 		}
 		setPosY(y + 1);
 	} else {
-		gameOverScreen();
+		mainScreen(this->isComplete);
 	}
 
 	registerTouchCount();
@@ -110,12 +105,13 @@ void Player::playerActions(int x, int y) {
 
 
 	if (getHealth() <= 0) {
+		this->isComplete = false;
 		changeLevel(0);
 	}
 }
 
 void Player::playerJump() {
-	if((GetAsyncKeyState(VK_SPACE) || GetAsyncKeyState(VK_UP)) && (isJumping != true))
+	if((GetAsyncKeyState(VK_SPACE) || GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57)) && (isJumping != true))
 	{
 		isJumping = true;
 	}
@@ -188,8 +184,13 @@ void Player::playerCollision() {
 		} else if (tileType == 6) {
 			// player goes to next level
 			if ((playerRight >= tileLeft) && (playerLeft <= tileRight) && (playerBottom >= tileTop) && (playerTop <= tileBottom)) {
-				changeLevel(getLevel() + 1);
-				getMap()[i][2] = 50;
+				if (getLevel() < getLevelCount()) {
+					changeLevel(getLevel() + 1);
+					getMap()[i][2] = 50;
+				} else {
+					this->isComplete = true;
+					changeLevel(0);
+				}
 			}
 		}
 	}
@@ -268,28 +269,30 @@ void Player::changeLevel(int level) {
 	placeTiles();
 }
 
-void Player::gameOverScreen() {
+void Player::mainScreen(bool success) {
 		int i = 0;
-		char text[3][20] = {
+		int typeNum = success == true ? 1 : 0;
+		char text[4][20] = {
 						"GAME OVER!", 
+						"YOU DID IT!",
 						"Press R to restart.",
 						"Press ESC to exit."};
 
-		int x = (800 - textwidth(text[0])) / 2;
-		int y = (640 - textheight(text[0])) / 2;
-		outtextxy(x, y + i, text[0]);
-
-		i += 25;
-
-		x = (800 - textwidth(text[1])) / 2;
-		y = (640 - textheight(text[1])) / 2;
-		outtextxy(x, y + i, text[1]);
+		int x = (800 - textwidth(text[typeNum])) / 2;
+		int y = (640 - textheight(text[typeNum])) / 2;
+		outtextxy(x, y + i, text[typeNum]);
 
 		i += 25;
 
 		x = (800 - textwidth(text[2])) / 2;
 		y = (640 - textheight(text[2])) / 2;
 		outtextxy(x, y + i, text[2]);
+
+		i += 25;
+
+		x = (800 - textwidth(text[3])) / 2;
+		y = (640 - textheight(text[3])) / 2;
+		outtextxy(x, y + i, text[3]);
 
 		if (GetAsyncKeyState(0x52)) {
 			changeLevel(1);

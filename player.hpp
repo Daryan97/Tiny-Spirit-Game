@@ -27,6 +27,7 @@
 			bool bottomCollision = false;
 			bool leftCollision = false;
 			bool rightCollision = false;
+			bool isComplete = false;
         public:
             int posX() {return x;}
             int posY() {return y;}
@@ -48,7 +49,7 @@
 			void registerTouchCount();
 			void setStartPos();
 			void changeLevel(int level);
-			void gameOverScreen();
+			void mainScreen(bool success);
     		Player(int level)
 	    	{
 				readPlayerAssets();
