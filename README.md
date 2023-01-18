@@ -23,7 +23,7 @@ I have used [Tiled Map Editor](https://www.mapeditor.org/) to create maps on one
 
 This is not the most efficient way to generate maps, but it makes it 10 times easier for my university project.
 
-What do the numbers represent?
+### What do the numbers represent?
 | Number | Represents |
 |--|--|
 | 0 | Air |
