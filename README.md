@@ -33,4 +33,5 @@ What do the numbers represent?
 | 4 | Player Spawn |
 | 5 | Enemy Spawn |
 | 6 | Next Level |
+
 The project full map creation files can be found at [this repository](https://github.com/Daryan97/Tiny_Spirits_Map).
