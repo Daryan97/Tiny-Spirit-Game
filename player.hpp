@@ -23,6 +23,10 @@
 	    	char* playerFullHeart;
 			int enemyTouchCount = 0;
 			int debugCount = 0;
+			bool topCollision = false;
+			bool bottomCollision = false;
+			bool leftCollision = false;
+			bool rightCollision = false;
         public:
             int posX() {return x;}
             int posY() {return y;}
@@ -44,6 +48,7 @@
 			void registerTouchCount();
 			void setStartPos();
 			void changeLevel(int level);
+			void OLDplayerCollision();
     		Player(int level)
 	    	{
 				readPlayerAssets();
