@@ -38,7 +38,6 @@ void drawTutorial() {
     }
 }
 
-
 int main()
 {
     initwindow(screenWidth, screenHeight, "Tiny Spirit");

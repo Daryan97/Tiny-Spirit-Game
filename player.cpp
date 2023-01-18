@@ -51,11 +51,6 @@ void Player::playerActions(int x, int y) {
 			putimage(this->x, this->y, playerWalkingLeft, COPY_PUT);
 			this->y += 1;
 		}
-		// else if (GetAsyncKeyState(VK_UP))
-		// {
-		// 	putimage(this->x, this->y, playerWalkingLeft, COPY_PUT);
-		// 	this->y -= 1;
-		// }
 		else {
     		if (lookingRight == true)
     		{
@@ -66,6 +61,9 @@ void Player::playerActions(int x, int y) {
 				putimage(this->posX(), this->posY(), playerLeft, COPY_PUT);
     		}
 		}
+		setPosY(y + 1);
+	} else {
+		gameOverScreen();
 	}
 
 	registerTouchCount();
@@ -75,7 +73,6 @@ void Player::playerActions(int x, int y) {
 		playerTakeHealth(1);
 	}
 	
-	setPosY(y + 1);
 	playerCollision();
 	setUI();
 	debugMode();
@@ -113,10 +110,7 @@ void Player::playerActions(int x, int y) {
 
 
 	if (getHealth() <= 0) {
-		cout << "Game over!" << endl;
-		cout << "X: " << this->x << endl;
-		cout << "Y: " << this->y << endl;
-		exit(0);
+		changeLevel(0);
 	}
 }
 
@@ -254,7 +248,7 @@ void Player::registerTouchCount() {
 void Player::setStartPos() {
 	int* startPos = getStartPos();
 	setPosX(startPos[0]);
-	setPosY(startPos[1] - 32);
+	setPosY(startPos[1]);
 }
 
 void Player::debugMode() {
@@ -272,4 +266,35 @@ void Player::changeLevel(int level) {
 	playerGetHealth(getMaxHealth());
 	setStartPos();
 	placeTiles();
+}
+
+void Player::gameOverScreen() {
+		int i = 0;
+		char text[3][20] = {
+						"GAME OVER!", 
+						"Press R to restart.",
+						"Press ESC to exit."};
+
+		int x = (800 - textwidth(text[0])) / 2;
+		int y = (640 - textheight(text[0])) / 2;
+		outtextxy(x, y + i, text[0]);
+
+		i += 25;
+
+		x = (800 - textwidth(text[1])) / 2;
+		y = (640 - textheight(text[1])) / 2;
+		outtextxy(x, y + i, text[1]);
+
+		i += 25;
+
+		x = (800 - textwidth(text[2])) / 2;
+		y = (640 - textheight(text[2])) / 2;
+		outtextxy(x, y + i, text[2]);
+
+		if (GetAsyncKeyState(0x52)) {
+			changeLevel(1);
+		}
+		if (GetAsyncKeyState(VK_ESCAPE)) {
+			exit(0);
+		}
 }

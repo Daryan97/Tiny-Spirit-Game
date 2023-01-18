@@ -48,7 +48,7 @@
 			void registerTouchCount();
 			void setStartPos();
 			void changeLevel(int level);
-			void OLDplayerCollision();
+			void gameOverScreen();
     		Player(int level)
 	    	{
 				readPlayerAssets();
