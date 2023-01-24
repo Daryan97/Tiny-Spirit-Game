@@ -10,12 +10,12 @@ using namespace std;
 void drawTutorial() {
     string tutorialText[] = {
         "Welcome to Tiny Spirit!",
-        "1. Press arrow keys to move around!",
-        "2. Press space bar or up arrow to jump!",
-        "3. Avoid enemies on the map!",
-        "4. Collect heart collectibles if you lose health!",
+        "1. Press ARROW or WASD keys to move around.",
+        "2. Press SPACEBAR as a Jumping alternative.",
+        "3. Avoid enemies on the map, they can hurt you.",
+        "4. Collect heart collectibles if you lose health.",
         "5. Go to the end point to advance to the next level.",
-        "Press SPACE to continue"
+        "Press SPACEBAR to continue"
     };
 
     settextstyle(BOLD_FONT, HORIZ_DIR, 5);

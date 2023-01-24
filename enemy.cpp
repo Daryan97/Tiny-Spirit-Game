@@ -26,6 +26,7 @@ class Enemy
         }
 };
 
+// read enemy assets
 void Enemy::readEnemyAssets()
 {
     enemyRight = new char[imagesize(0, 0, width, height)];
@@ -37,8 +38,10 @@ void Enemy::readEnemyAssets()
     getimage(0, 0, width, height, enemyLeft);
 }
 
+// draw enemy location and direction
 void Enemy::drawEnemy()
 {
+    // if direction = 0 then move right
     if (direction == 0)
     {
         putimage(this->x, this->y, enemyRight, COPY_PUT);
@@ -48,6 +51,7 @@ void Enemy::drawEnemy()
             direction = 1;
         }
     }
+    // if direction = 1 then move left
     else
     {
         putimage(this->x, this->y, enemyLeft, COPY_PUT);

@@ -5,6 +5,7 @@
 #include "player.hpp"
 using namespace std;
 
+// read player assets
 void Player::readPlayerAssets() {
 	playerRight = new char[imagesize(0, 0, width, height)];
 	readimagefile("Assets/Player/player_right.gif", 0, 0, width, height);
@@ -61,8 +62,8 @@ void Player::playerActions(int x, int y) {
 		mainScreen(this->isComplete);
 	}
 
+	// if player touches enemy, take 1 health
 	registerTouchCount();
-
 	if(this->enemyTouchCount == 17) {
 		this->enemyTouchCount = 0;
 		playerTakeHealth(1);
@@ -72,44 +73,47 @@ void Player::playerActions(int x, int y) {
 	setUI();
 	debugMode();
 
+
+	// debug mode
 	if (this->debug == true)
 	{
-		// debug options (will be removed later)
-		if(ismouseclick(WM_LBUTTONDOWN)) {
+		// Teleport with Left ALT + Left Mouse Click
+		if(ismouseclick(WM_LBUTTONDOWN) && GetAsyncKeyState(VK_LMENU)) {
 			setPosX(mousex());
 			setPosY(mousey() - 32);
 			clearmouseclick(WM_LBUTTONDOWN);
 		}
 
-		// load main menu
+		// Change level to main menu level with 1
 		if (GetAsyncKeyState(0x31)) {
 			changeLevel(0);
 		}
 
-		// load level 1
+		// Change level to level 1 with 2
 		if(GetAsyncKeyState(0x32)) {
 			changeLevel(1);
 		}
 		
-		// load level 2
+		// Change level to level 2 with 3
 		if(GetAsyncKeyState(0x33)) {
 			changeLevel(2);
 		}
 
-		// show player X and Y position
-		if (GetAsyncKeyState(VK_LSHIFT)) {
+		// show player X and Y position with Left Shift + P
+		if (GetAsyncKeyState(VK_LSHIFT) && GetAsyncKeyState(0x50)) {
 			cout << "Player X: " << this->x << endl;
 			cout << "Player Y: " << this->y << endl;
 		}
 	}
 
-
+	// player death
 	if (getHealth() <= 0) {
 		this->isComplete = false;
 		changeLevel(0);
 	}
 }
 
+// player jump function
 void Player::playerJump() {
 	if((GetAsyncKeyState(VK_SPACE) || GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57)) && (isJumping != true))
 	{
@@ -123,6 +127,7 @@ void Player::playerJump() {
 	}
 }
 
+// player collision system
 void Player::playerCollision() {
 	// player bounding
 	int playerLeft = this->x;
@@ -196,6 +201,7 @@ void Player::playerCollision() {
 	}
 }
 
+// gain health to player
 void Player::playerGetHealth(int health) {
 	if (health > 0 && this->health != this->max_health) {
 		this->health += health;
@@ -205,12 +211,14 @@ void Player::playerGetHealth(int health) {
 	}
 };
 
+// take health from player
 void Player::playerTakeHealth(int health) {
 	if (health > 0 && this->health != 0) {
 		this->health -= health;
 	}		
 }
 
+// set player UI
 void Player::setUI() {
 	if (getLevel() != 0)
 	{
@@ -227,6 +235,7 @@ void Player::setUI() {
 	}
 }
 
+// check if player is touching enemy
 bool Player::playerTouchEnemy() {
     for(int i = 0; i < getEnemiesCount(); i++) {
         if(x + 32 >= getEnemies()[i].posX() && x <= getEnemies()[i].posX() + 32 && y + 32 >= getEnemies()[i].posY() && y <= getEnemies()[i].posY() + 32) {
@@ -236,8 +245,9 @@ bool Player::playerTouchEnemy() {
     return false;
 }
 
+// check if player is touching enemy and register touch ticks
 void Player::registerTouchCount() {
-	if(playerTouchEnemy() == 1) {
+	if(playerTouchEnemy()) {
 		setTouchCount(1);
 	}
 	else {
@@ -246,14 +256,16 @@ void Player::registerTouchCount() {
 	}
 }
 
+// set player start position
 void Player::setStartPos() {
 	int* startPos = getStartPos();
 	setPosX(startPos[0]);
 	setPosY(startPos[1]);
 }
 
+// enable debu mode with Left CTRL + Left SHIFT + Z
 void Player::debugMode() {
-	if(GetAsyncKeyState(VK_CAPITAL) && this->debug == false) {
+	if((GetAsyncKeyState(VK_LSHIFT) && GetAsyncKeyState(VK_LCONTROL) && GetAsyncKeyState(0x5A)) && this->debug == false) {
 		this->debug = true;
 		cout << "Debug mode: enabled" << endl;
 	} else if(GetAsyncKeyState(VK_CAPITAL) && this->debug == true) {
@@ -262,6 +274,7 @@ void Player::debugMode() {
 	}
 }
 
+// change level function
 void Player::changeLevel(int level) {
 	setLevel(level);
 	playerGetHealth(getMaxHealth());
@@ -269,6 +282,7 @@ void Player::changeLevel(int level) {
 	placeTiles();
 }
 
+// draw main screen texts
 void Player::mainScreen(bool success) {
 		int i = 0;
 		int typeNum = success == true ? 1 : 0;
