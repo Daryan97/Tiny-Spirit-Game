@@ -4,7 +4,7 @@
 
 using namespace std;
 
-
+// read map assets
 void Map::readMapAssets() {
     grassTile = new char[imagesize(0, 0, width, height)];
     readimagefile("Assets/Map/grassTile.gif", 0, 0, width, height);
@@ -23,6 +23,7 @@ void Map::readMapAssets() {
     getimage(0, 0, width, height, coinCollectible);
 }
 
+// set map level with tiles, enemies and player spawn
 void Map::setLevel(int level) {
     this->level = level;
     this->map = new int*[getMapSize()];
@@ -63,6 +64,7 @@ void Map::setLevel(int level) {
     }
 }
 
+// draw map tiles
 void Map::placeTiles() {
     for(int i = 0; i < getMapSize(); i++) {
         if(map[i][2] == 0) {
@@ -79,12 +81,14 @@ void Map::placeTiles() {
     }
 }
 
+// draw enemies
 void Map::placeEnemies() {
     for(int i = 0; i < getEnemiesCount(); i++) {
         enemies[i].drawEnemy();
     }
 }
 
+// get back map level number text
 char* Map::getLevelText() {
     char* levelText = new char[10];
     sprintf(levelText, "Level: %d", this->level);
