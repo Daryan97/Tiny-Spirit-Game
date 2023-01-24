@@ -56,6 +56,7 @@ void Player::playerActions(int x, int y) {
     		}
 		}
 		setPosY(y + 1);
+		
 	} else {
 		mainScreen(this->isComplete);
 	}
