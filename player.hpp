@@ -22,11 +22,6 @@
     		char* playerEmptyHeart;
 	    	char* playerFullHeart;
 			int enemyTouchCount = 0;
-			int debugCount = 0;
-			bool topCollision = false;
-			bool bottomCollision = false;
-			bool leftCollision = false;
-			bool rightCollision = false;
 			bool isComplete = false;
         public:
             int posX() {return x;}

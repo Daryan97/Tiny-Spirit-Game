@@ -1,7 +1,5 @@
 #include <graphics.h>
 #include <iostream>
-#include <queue>
-#include <math.h>
 #include "player.hpp"
 using namespace std;
 
@@ -58,6 +56,7 @@ void Player::playerActions(int x, int y) {
     		}
 		}
 		setPosY(y + 1);
+		
 	} else {
 		mainScreen(this->isComplete);
 	}

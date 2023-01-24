@@ -5,7 +5,7 @@
 using namespace std;
 
 	const int screenWidth = 800;
-    const int screenHeight = 640;
+    const int screenHeight = 640; // 32x32
 
 void drawTutorial() {
     string tutorialText[] = {
