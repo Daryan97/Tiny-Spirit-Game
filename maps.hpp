@@ -10,7 +10,6 @@
             int y = 0;
             const unsigned int width = 32, height = 32;
             int level = 0;
-            int levelCount = 3;
             char* grassTile;
             char* dirtTile;
             char* heartCollectible;
@@ -21,6 +20,7 @@
             int enemiesCount = 0;
             int tileWidthCount = 25;
             int tileHeightCount = 20;
+            int levelCount = 3;
             int maps[4][500] = 
             {   
                 // level 0 (main screen)
